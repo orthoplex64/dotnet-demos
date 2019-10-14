@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mangled Headers</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      table {
+        border-collapse: collapse;
+      }
+      table td {
+        border: 1px solid black;
+        padding: 5px;
+      }
+    </style>
+    <script>
+      window.onload = () => {
+        for (let y = 0; y < 10; y++) {
+          for (let x = 0; x < 10; x++) {
+            const id = `${x}-${y}`;
+              fetch(
+                '/echoheadersproxy',
+                {
+                  headers: {
+                    'X-Some-Header': id,
+                  },
+                },
+              ).then(r => r.json()).then(r => {
+                document.getElementById(id).style['background-color'] = r['X-Some-Header'][0] === id ? 'green' : 'red';
+              });
+          }
+        }
+      };
+    </script>
+  </head>
+  <body>
+    Blue = pending<br>
+    Green = correct header<br>
+    Red = wrong header
+    <table>
+      <tbody>
+          @for (var y = 0; y < 10; y++)
+          {
+        <tr>
+            @for (var x = 0; x < 10; x++)
+            {
+          <td id="@x-@y" style="background-color: blue;">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            }
+        </tr>
+          }
+      </tbody>
+    </table>
+  </body>
+</html>
