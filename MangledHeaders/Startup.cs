@@ -53,7 +53,10 @@ namespace MangledHeaders
                 {
                     options.Headers.Add("X-Some-Header");
                 })
-                .AddMvc();
+                .AddMvc(options =>
+                {
+                    options.EnableEndpointRouting = false;
+                });
 
             services
                 .AddHttpClient("header-propagating-client")
@@ -75,7 +78,7 @@ namespace MangledHeaders
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app
-                // .Use(async (context, next) => await next.Invoke())
+                .Use(async (context, next) => await next.Invoke())
                 .UseHeaderPropagation()
                 .UseMvc();
         }

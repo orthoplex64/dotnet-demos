@@ -20,23 +20,23 @@
         for (let y = 0; y < 10; y++) {
           for (let x = 0; x < 10; x++) {
             const id = `${x}-${y}`;
-              fetch(
-                '/echoheadersproxy',
-                {
-                  headers: {
-                    'X-Some-Header': id,
-                  },
+            fetch(
+              '/echoheadersproxy',
+              {
+                headers: {
+                  'X-Some-Header': id,
                 },
-              ).then(r => r.json()).then(r => {
-                document.getElementById(id).style['background-color'] = r['X-Some-Header'][0] === id ? 'green' : 'red';
-              });
+              },
+            ).then(r => r.json()).then(r => {
+              document.getElementById(id).style['background-color'] = r['X-Some-Header'][0] === id ? 'green' : 'red';
+            });
           }
         }
       };
     </script>
   </head>
   <body>
-    Blue = pending<br>
+    Blue = pending (or error)<br>
     Green = correct header<br>
     Red = wrong header
     <table>

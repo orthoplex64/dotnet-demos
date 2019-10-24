@@ -1,9 +1,11 @@
 namespace MangledHeaders.Controllers
 {
+    using System.Collections.Generic;
     using System.Net.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Primitives;
 
     /// <summary>
     ///     The home controller.
@@ -69,7 +71,7 @@ namespace MangledHeaders.Controllers
         [HttpGet("echoheaders")]
         public ActionResult EchoHeaders()
         {
-            return this.Ok(this.Request.Headers);
+            return this.Ok(new Dictionary<string, StringValues>(this.Request.Headers));
         }
     }
 }
